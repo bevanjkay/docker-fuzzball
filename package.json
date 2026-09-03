@@ -1,11 +1,11 @@
 {
   "name": "fuzzball-api",
   "type": "module",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Minimal API wrapper for the fuzzball npm package",
   "engines": {
-    "node": ">=20"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node src/server.js",
