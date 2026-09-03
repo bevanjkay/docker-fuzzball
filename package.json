@@ -1,0 +1,24 @@
+{
+  "name": "fuzzball-api",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Minimal API wrapper for the fuzzball npm package",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "node --check src/server.js && node --check src/healthcheck.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "fuzzball": "^2.2.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.3.0",
+    "eslint": "^10.9.1"
+  }
+}
