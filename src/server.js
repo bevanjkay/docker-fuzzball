@@ -96,7 +96,9 @@ export function createServer() {
         if (a === null || b === null) {
           throw new HttpError(400, "Query params \"a\" and \"b\" are required");
         }
-        return sendJson(res, 200, { ratio: fuzzball.ratio(a, b) });
+        return sendJson(res, 200, {
+          ratio: fuzzball.ratio(a, b),
+        });
       }
 
       if (req.method === "POST" && url.pathname === "/extract") {
@@ -123,7 +125,9 @@ export function createServer() {
           throw new HttpError(400, "Body field \"cutoff\" must be a finite number from 0 to 100 when provided");
         }
 
-        const matches = fuzzball.extract(query, choices, cutoff === undefined ? undefined : { cutoff });
+        const matches = fuzzball.extract(query, choices, cutoff === undefined
+          ? undefined
+          : { cutoff });
         const bestMatch = matches[0];
         return sendJson(res, 200, bestMatch
           ? { choice: bestMatch[0], score: bestMatch[1] }
@@ -131,7 +135,9 @@ export function createServer() {
       }
 
       if (url.pathname === "/" || url.pathname === "/health" || url.pathname === "/extract") {
-        const allow = url.pathname === "/extract" ? "POST" : "GET";
+        const allow = url.pathname === "/extract"
+          ? "POST"
+          : "GET";
         return sendJson(res, 405, { error: "Method not allowed" }, { allow });
       }
 
@@ -153,7 +159,9 @@ export function createServer() {
 }
 
 export function parsePort(value = process.env.PORT) {
-  const port = value === undefined ? DEFAULT_PORT : Number(value);
+  const port = value === undefined
+    ? DEFAULT_PORT
+    : Number(value);
   if (!Number.isInteger(port) || port < 1 || port > 65_535) {
     throw new Error("PORT must be an integer from 1 to 65535");
   }

@@ -12,7 +12,9 @@ before(async () => {
 });
 
 after(async () => {
-  await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
+  await new Promise((resolve, reject) => server.close(error => error
+    ? reject(error)
+    : resolve()));
 });
 
 async function request(path, options) {
@@ -37,7 +39,11 @@ describe("fuzzball API", () => {
     const { response, body } = await request("/extract", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ query: "appl", choices: ["apple", "banana", "apply"], cutoff: 80 }),
+      body: JSON.stringify({
+        query: "appl",
+        choices: ["apple", "banana", "apply"],
+        cutoff: 80,
+      }),
     });
     assert.equal(response.status, 200);
     assert.deepEqual(body, { choice: "apple", score: 89 });
@@ -47,7 +53,11 @@ describe("fuzzball API", () => {
     const { body } = await request("/extract", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ query: "apple", choices: ["pear"], cutoff: 90 }),
+      body: JSON.stringify({
+        query: "apple",
+        choices: ["pear"],
+        cutoff: 90,
+      }),
     });
     assert.deepEqual(body, { choice: null, score: null });
   });
@@ -64,7 +74,11 @@ describe("fuzzball API", () => {
     const badCutoff = await request("/extract", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ query: "a", choices: ["a"], cutoff: 101 }),
+      body: JSON.stringify({
+        query: "a",
+        choices: ["a"],
+        cutoff: 101,
+      }),
     });
     assert.equal(badCutoff.response.status, 400);
   });
